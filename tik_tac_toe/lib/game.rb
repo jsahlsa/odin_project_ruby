@@ -71,9 +71,9 @@ class Game
         @board.board.count.times do |i|
             
             @board.board[i].count.times do |j|
-                p @board.board[i][pos]
+                p @board.board[j][pos]
                 # check each in the column, if it doesn't match, return false
-                if @board.board[i][pos] != player.symbol
+                if @board.board[j][pos] != player.symbol
                     return false
                 end
             end 
