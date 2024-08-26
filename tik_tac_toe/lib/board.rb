@@ -2,7 +2,7 @@ class Board
     attr_accessor :board, :count
     
     def initialize
-        @board = [["0", "1", "#"], ["0", "1", "#"], ["0", "1", "#"]]
+        @board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
         @count = 0
     end
     

@@ -46,6 +46,9 @@ class Game
         if check_down(@board, @current_player)
             return true
         end 
+        if check_diagonal(@board.board, @current_player)
+            return true
+        end 
         return false
     end 
         
@@ -69,18 +72,28 @@ class Game
     def check_down(board, player)
         pos = 0
         @board.board.count.times do |i|
+            got_all_3 = 0
             
             @board.board[i].count.times do |j|
-                p @board.board[j][pos]
                 # check each in the column, if it doesn't match, return false
-                if @board.board[j][pos] != player.symbol
-                    return false
+                if @board.board[j][pos] == player.symbol
+                    got_all_3 += 1
                 end
             end 
             # all matched, so return true
-            return true
-            pos += 1
+            if got_all_3 == 3
+                return true
+            else
+                pos += 1
+            end 
         end
+        return false
+    end 
+    
+    def check_diagonal(board, player)
+        if (board[0][0] == player.symbol && board[1][1] == player.symbol && board[2][2] == player.symbol) || (board[0][2] == player.symbol && board[1][1] == player.symbol && board[2][0] == player.symbol)
+            return true
+        end 
         return false
     end 
         
