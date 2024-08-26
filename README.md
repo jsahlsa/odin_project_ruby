@@ -10,4 +10,4 @@
 
 # A command line ruby tic tac toe
 
-Assignment from the [Odin Project](www.theodinproject.com) ruby curriculum
+Assignment from the [Odin Project](https://www.theodinproject.com) ruby curriculum
