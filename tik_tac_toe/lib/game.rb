@@ -1,12 +1,6 @@
 class Game
     attr_accessor :board, :player_one, :player_two
     
-    # need to add turn taking functionality, takes player as arg
-    # add a function that places symbol in correct square
-    # get row and column as inputs from user
-    # need to add a :won function to determine if game is over
-    # check across won, down won, or diagonal won
-    # I think won would be a while loop that would break on a win, and print a message, asking for another game or quit
     
     def initialize(board, player_one, player_two)
         @board = board
@@ -15,13 +9,22 @@ class Game
         @current_player = @player_one
     end 
     
+    # make a move, gets column and row separately, and checks for valid input and available square
     def make_a_move
         puts "The current symbol playing is: #{@current_player.symbol}"
         puts "Enter the row: "
-        row = gets.chomp.to_i - 1
+        # row = gets.chomp.to_i - 1
+        row = get_move
         puts "Enter the column: "
-        column = gets.chomp.to_i - 1
-        puts "You entered row #{row} and column #{column}"
+        column = get_move
+        while !valid_square(@board.board, row, column)
+            puts "That square is taken"
+            puts "Enter the row"
+            row = get_move
+            puts "Enter a column"
+            column = get_move
+        end
+        puts "You entered row #{row + 1} and column #{column + 1}"
         @board.board[row][column] = @current_player.symbol
         @board.print_board
         #switch players at the end of a turn
@@ -33,12 +36,14 @@ class Game
         end
     end 
     
+    # while loop until game_won returns true
     def start_game
         while(!game_won) do
             make_a_move    
         end 
     end 
     
+    # checks 3 winning scenarios
     def game_won
         if check_across(@board, @current_player)
             return true
@@ -69,6 +74,7 @@ class Game
         return false
     end 
     
+    # checks for down winner
     def check_down(board, player)
         pos = 0
         @board.board.count.times do |i|
@@ -96,6 +102,32 @@ class Game
         end 
         return false
     end 
+    
+    # valid move gets an int between 0 and 2
+    def valid_move(move)
+        if move && move >= 0 && move <= 2
+            return true
+        end 
+        return false
+    end 
+    
+    # get move returns an int once it meets the requirements of valid_move
+    def get_move
+        move = gets.chomp.to_i - 1
+        while !valid_move(move) do
+            puts "Please enter a valid number, 1, 2, or 3"
+            move = gets.chomp.to_i - 1
+        end
+        return move
+    end
+    
+    def valid_square(board, row, column)
+        if board[row][column] == " "
+            return true
+        end 
+        return false
+    end 
+    
         
 end
         
