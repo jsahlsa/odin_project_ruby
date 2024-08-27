@@ -31,6 +31,8 @@ class Game
         # dont switch if game is won
         if game_won
             puts "#{@current_player.symbol} Won!"
+        elsif @board.board_full?(@board.board)
+            puts "Cat's game!"
         else
             @current_player == @player_one ? @current_player = @player_two : @current_player = @player_one
         end
@@ -38,7 +40,8 @@ class Game
     
     # while loop until game_won returns true
     def start_game
-        while(!game_won) do
+        # use all to avoid or operator short circuit
+        while([@board.board_full?(@board.board), game_won].all? { |i| i == false }) do
             make_a_move    
         end 
     end 

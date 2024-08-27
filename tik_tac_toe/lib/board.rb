@@ -24,4 +24,15 @@ class Board
             end 
         end
     end 
+    
+    def board_full?(board)
+        board.count.times do |i|
+            board[i].count.times do |j|
+                if board[i][j] == " "
+                    return false
+                end 
+            end 
+        end 
+        return true
+    end
 end 
